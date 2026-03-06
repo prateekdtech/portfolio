@@ -34,11 +34,6 @@ body{
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 button{font-family:inherit}
-/* Prevent text overflow on all elements */
-*{min-width:0}
-body{overflow-wrap:break-word;word-break:break-word}
-/* Faster touch response */
-a,button{touch-action:manipulation}
 
 /* ══ CUSTOM CURSOR — desktop pointer only ════════════════════════ */
 @media(hover:hover) and (pointer:fine){
@@ -100,10 +95,6 @@ nav{
   background:var(--text);border-radius:2px;
   transition:transform .28s ease,opacity .28s ease;
 }
-/* ── Hamburger → X morph when nav is open ── */
-body.nav-open .hamburger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-body.nav-open .hamburger span:nth-child(2){opacity:0;transform:scaleX(0)}
-body.nav-open .hamburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
 /* Full-screen mobile nav overlay */
 .mobile-nav{
@@ -313,7 +304,7 @@ h1.hero-name{
 
 /* ══ SKILLS ═════════════════════════════════════════════════════ */
 #skills{background:var(--bg)}
-.skill-groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(270px,100%),1fr));gap:1.15rem}
+.skill-groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.15rem}
 .sg{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;box-shadow:var(--sh-sm);transition:border-color .25s,transform .25s,box-shadow .25s}
 .sg:hover{border-color:rgba(59,130,246,.3);transform:translateY(-3px);box-shadow:var(--sh-lg)}
 .sg-title{font-family:"Syne",sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;display:flex;align-items:center;gap:.45rem}
@@ -345,7 +336,7 @@ h1.hero-name{
 
 /* ══ ACHIEVEMENTS ═══════════════════════════════════════════════ */
 #achievements{background:var(--bg)}
-.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(200px,100%),1fr));gap:1.1rem;max-width:880px;margin:0 auto}
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.1rem;max-width:880px;margin:0 auto}
 .ach-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;text-align:center;box-shadow:var(--sh-sm);transition:border-color .25s,transform .25s,box-shadow .25s}
 .ach-card:hover{border-color:rgba(59,130,246,.3);transform:translateY(-3px);box-shadow:var(--sh-lg)}
 .ach-icon{font-size:1.65rem;margin-bottom:.55rem}
@@ -365,7 +356,7 @@ h1.hero-name{
 .cert-item:hover{border-color:rgba(59,130,246,.3);transform:translateX(3px);box-shadow:var(--sh-md)}
 .cert-icon{width:32px;height:32px;border-radius:7px;background:rgba(59,130,246,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .cert-body{min-width:0}
-.cert-name{font-size:.84rem;font-weight:500;color:var(--text);line-height:1.4;overflow-wrap:break-word}
+.cert-name{font-size:.84rem;font-weight:500;color:var(--text);line-height:1.4}
 .cert-org{font-size:.71rem;color:var(--muted);margin-top:.1rem}
 .cert-date{font-size:.71rem;color:var(--accent);white-space:nowrap;font-weight:600;padding-left:.5rem}
 
@@ -424,23 +415,20 @@ footer span{color:#94a3b8}
   .hero-cta{justify-content:center}
   /* About: stack */
   .about-grid{grid-template-columns:1fr;gap:2rem}
-  /* Stats: keep 2-col */
-  .stats{grid-template-columns:1fr 1fr}
 }
 
-/* ── Tablet 768 ── tighten spacing, single-column timeline */
+/* ── Mobile 768 ── tighten spacing, single-column timeline */
 @media(max-width:768px){
   :root{--px:1.4rem;--py:3.8rem}
   nav{padding:.75rem 1.2rem}
   /* Timeline → left-aligned single column */
   .timeline::before{left:22px;transform:none}
-  .tl-item{grid-template-columns:46px 1fr!important;gap:.85rem;margin-bottom:1.8rem}
-  .tl-item:nth-child(odd)  .tl-card,
-  .tl-item:nth-child(even) .tl-card{grid-column:2!important;text-align:left}
-  .tl-item:nth-child(odd)  .tl-empty,
-  .tl-item:nth-child(even) .tl-empty{display:none}
-  .tl-dot{grid-column:1!important;align-self:start;margin-top:.1rem}
-  /* Skill groups: single column on narrow tablet */
+  .tl-item{grid-template-columns:46px 1fr;gap:.85rem;margin-bottom:1.8rem}
+  .tl-item:nth-child(odd) .tl-card,
+  .tl-item:nth-child(even) .tl-card{grid-column:2;text-align:left}
+  .tl-dot{grid-column:1}
+  .tl-empty{display:none}
+  /* Skills: single column */
   .skill-groups{grid-template-columns:1fr}
   /* Contact buttons: full width */
   .contact-links{flex-direction:column;align-items:stretch}
@@ -451,12 +439,9 @@ footer span{color:#94a3b8}
   .cert-date{grid-column:2;grid-row:2;padding:0;font-size:.68rem}
   /* Achievements: 2 cols */
   .ach-grid{grid-template-columns:1fr 1fr}
-  /* Hero CTA: 2-col grid */
-  .hero-cta{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
-  .hero-cta a:last-child:nth-child(odd){grid-column:1/-1}
 }
 
-/* ── Mobile 480 ── */
+/* ── Small mobile 480 ── */
 @media(max-width:480px){
   :root{--px:1.2rem;--py:3.2rem}
   nav{padding:.7rem 1rem}
@@ -464,9 +449,8 @@ footer span{color:#94a3b8}
   .photo-ring{width:132px;height:132px}
   .photo-dot{width:11px;height:11px;top:8px;right:8px}
   .photo-badge{font-size:.56rem;padding:.24rem .65rem}
-  /* CTA: full column on very small mobile */
-  .hero-cta{display:flex;flex-direction:column;gap:.5rem}
-  .hero-cta .btn{width:100%;justify-content:center;font-size:.84rem}
+  .hero-cta{gap:.5rem}
+  .hero-cta .btn{font-size:.82rem;padding:.62rem 1.1rem}
   .stats{gap:.7rem}
   .stat-n{font-size:1.7rem}
   .sg-tags .sg-tag{font-size:.7rem}
@@ -475,8 +459,6 @@ footer span{color:#94a3b8}
   .cert-name{font-size:.82rem}
   .contact-card{padding:1.9rem 1.1rem}
   .contact-card .sec-title{font-size:1.4rem}
-  /* Hide decorative orbs on small screens */
-  .hero-orb1,.hero-orb2{display:none}
 }
 
 /* ── XSmall 360 ── */
@@ -484,14 +466,9 @@ footer span{color:#94a3b8}
   :root{--px:1rem;--py:2.8rem}
   .photo-ring{width:118px;height:118px}
   .chip{font-size:.62rem;padding:.26rem .62rem}
-  .tl-item{gap:.7rem}
-  /* Achievements: single col on tiny */
+  .hero-cta .btn{font-size:.79rem;padding:.58rem .95rem}
   .ach-grid{grid-template-columns:1fr}
-  /* Cert date same row but smaller */
-  .cert-date{font-size:.64rem}
-  /* Stats: maintain 2-col but tighter */
-  .stat{padding:.75rem .3rem}
-  .stat-n{font-size:1.55rem}
+  .tl-item{gap:.7rem}
 }
 
 /* ── Touch: remove hover transforms that feel sticky ── */
@@ -500,9 +477,7 @@ footer span{color:#94a3b8}
   .btn:hover{transform:none;box-shadow:none}
   .btn-primary:hover{box-shadow:0 4px 14px rgba(59,130,246,.32)}
   .btn-sky:hover{box-shadow:0 4px 14px rgba(14,165,233,.28)}
-  .pillar:hover{transform:none}
 }
-
 </style>
 </head>
 <body>
@@ -577,7 +552,7 @@ footer span{color:#94a3b8}
         <a href="https://wa.me/919130991559" target="_blank" class="btn btn-green">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 0C5.372 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.826L.057 23.857a.5.5 0 00.611.612l6.102-1.483A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.955 0-3.782-.538-5.346-1.471l-.374-.222-3.875.942.973-3.79-.243-.389A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>WhatsApp
         </a>
-        <a href="/cdn-cgi/l/email-protection#354547544150505e511b4150565d755258545c591b565a58" class="btn btn-outline">
+        <a href="mailto:prateekd.tech@gmail.com" class="btn btn-outline">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>Email Me
         </a>
       </div>
@@ -825,8 +800,8 @@ footer span{color:#94a3b8}
         <a href="https://wa.me/919130991559" target="_blank" class="btn btn-green">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 0C5.372 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.826L.057 23.857a.5.5 0 00.611.612l6.102-1.483A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.955 0-3.782-.538-5.346-1.471l-.374-.222-3.875.942.973-3.79-.243-.389A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>WhatsApp
         </a>
-        <a href="/cdn-cgi/l/email-protection#cfbfbdaebbaaaaa4abe1bbaaaca78fa8a2aea6a3e1aca0a2" class="btn btn-outline">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg><span class="__cf_email__" data-cfemail="69191b081d0c0c020d471d0c0a01290e04080005470a0604">[email&#160;protected]</span>
+        <a href="mailto:prateekd.tech@gmail.com" class="btn btn-outline">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>prateekd.tech@gmail.com
         </a>
         <a href="https://www.linkedin.com/in/depratik" target="_blank" class="btn btn-outline">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn
@@ -840,7 +815,7 @@ footer span{color:#94a3b8}
   <p>&copy; 2025 <span>Pratik Deshmukh</span> &nbsp;&middot;&nbsp; Pune, India &nbsp;&middot;&nbsp; Data Engineer &amp; Migration Specialist</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ── Custom cursor: desktop pointer devices only ── */
 (function(){
   if(!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
@@ -882,4 +857,13 @@ const co=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting&&!e.target.dataset.done){
       e.target.dataset.done=1;
-      const target=+e.target.dataset.count
+      const target=+e.target.dataset.count,step=target/52;
+      let cur=0;
+      const t=setInterval(()=>{cur=Math.min(cur+step,target);e.target.textContent=Math.round(cur);if(cur>=target)clearInterval(t)},18);
+    }
+  });
+},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+</script>
+</body>
+</html>
